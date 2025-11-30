@@ -15,13 +15,12 @@ const userVerification=require('./middleware/userVerification.js')
 const MyError =require('./MyError.js')
 
 
-app.use(cors(
-  {
-    origin: ["https://zerodha-clone-1-5grb.onrender.com"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  }
-));
+app.use(cors({
+  origin: ["https://zerodha-clone-1-5grb.onrender.com"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -311,6 +310,8 @@ app.post('/userLogin',async(req,res,next)=>{
      res.cookie("token", token, {
        withCredentials: true,
        httpOnly: false,
+       secure: true,         
+       sameSite: "none"  
      });
      res.json({data:user,message:"User logged-in successfully",status:true});
     }catch(err){

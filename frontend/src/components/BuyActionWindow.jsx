@@ -14,12 +14,15 @@ const BuyActionWindow = ({uid}) => {
         generalContext.closeBuyWindow();
     }
     const handleBuySubmit=()=>{
-        axios.post('http://localhost:3000/newOrder',{
+        axios.post('https://zerodha-clone-ae1z.onrender.com/newOrder',{
              name: uid,
              qty:  stockQty,
              price:  stockPrice,
              mode: "BUY",
-        })
+
+        },
+        {withCredentials:true}
+    );
         generalContext.closeBuyWindow();
     }
 
