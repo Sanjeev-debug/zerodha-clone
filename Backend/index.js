@@ -16,7 +16,7 @@ const MyError =require('./MyError.js')
 
 
 app.use(cors({
-  origin: ["https://zerodha-clone-1-5grb.onrender.com"],
+  origin: ["https://zerodha-clone-ae1z.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
@@ -275,14 +275,14 @@ app.post('/newUser',async(req,res,next)=>{
         newUser.save();
         const token = createSecretToken(newUser._id);
         res.cookie("token", token, {
-        httpOnly: false,  // agar React me access karna hai
+        httpOnly: true,  // agar React me access karna hai
         secure: true,
         sameSite: "none",
         maxAge: 24*60*60*1000
        });
 
        console.log('userSave');
-       res.json({message:'User craeted successfully',status:true});
+       res.json({data:newUser,message:'User craeted successfully',status:true,login:true});
   }catch(err){
     next(err)
   }
@@ -310,12 +310,12 @@ app.post('/userLogin',async(req,res,next)=>{
     }
      const token = createSecretToken(user._id);
      res.cookie("token", token, {
-        httpOnly: false,  // agar React me access karna hai
+        httpOnly: true,  // agar React me access karna hai
         secure: true,
         sameSite: "none",
         maxAge: 24*60*60*1000  
      });
-     res.json({data:user,message:"User logged-in successfully",status:true});
+     res.json({data:user,message:"User logged-in successfully",status:true,login:true});
     }catch(err){
       next(err)
     }

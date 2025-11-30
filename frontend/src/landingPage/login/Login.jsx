@@ -6,7 +6,7 @@ import { useContextProvider } from '../../context/ContextProvider'
 
 const Login = () => {
 
-       const {setStatusMessage,setIsStatus}=useContextProvider()
+       const {setStatusMessage,setIsStatus,setIsLogin}=useContextProvider()
 
     const Navigate=useNavigate()
     const [userName,setUserName]=useState('');
@@ -22,12 +22,14 @@ const Login = () => {
     );
     console.log(res?.data)
     console.log(res?.data?.message)
+    console.log(res?.data?.login)
     
 
      
         if(res?.data?.message){
             setStatusMessage(res?.data?.message);
             setIsStatus(res?.data?.status);
+            setIsLogin(res?.data?.login);
            Navigate('/dashboard')
         }
 

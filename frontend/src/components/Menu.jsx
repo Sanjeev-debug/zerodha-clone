@@ -2,18 +2,19 @@ import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import './Menu.css'
 import { useState } from 'react'
-import {useCookies} from 'react-cookie'
+import { useContextProvider } from '../context/ContextProvider'
+
 
 
 const 
 Menu = () => {
-
+     const {setIsLogin}=useContextProvider()
    const Navigate=useNavigate()
 
-   const [cookies,setCookies,removeCookies]=useCookies([])
+   
   const [isLogout,setIsLogout]=useState(false);
   const handelLogout=()=>{
-     removeCookies('token');
+    setIsLogin(false);
      setIsLogout(!isLogout)
      
      

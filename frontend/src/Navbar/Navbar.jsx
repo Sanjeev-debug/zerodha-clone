@@ -1,10 +1,10 @@
 import React from 'react'
 import { useCookies } from 'react-cookie'
 import { Link, NavLink } from 'react-router-dom'
+import { useContextProvider } from '../context/ContextProvider'
 
 const Navbar = () => {
-  const [cookie,setCookies,removeCookies]=useCookies(["token"])
-  console.log("ccookkies --",cookie.token)
+      const {isLogin}=useContextProvider()
   return (
    <>
    
@@ -33,7 +33,7 @@ const Navbar = () => {
          <li className="nav-item">
           <Link className="nav-link" to={'/support'}>Support</Link>
         </li>
-        {cookie.token?
+        {isLogin?
         <li className="nav-item">
           <Link className="nav-link" to={'/dashboard'}>Dashboard</Link>
         </li>

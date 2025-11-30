@@ -6,7 +6,7 @@ import { useContextProvider } from '../../context/ContextProvider'
 
 const SignupPage = () => {
 
-           const {setStatusMessage,setIsStatus}=useContextProvider()
+           const {setStatusMessage,setIsStatus,setIsLogin}=useContextProvider()
 
    const Navigate=useNavigate();
    
@@ -26,6 +26,8 @@ const SignupPage = () => {
          if(res?.data?.message){
             setStatusMessage(res?.data?.message);
             setIsStatus(res?.data?.status);
+            setIsLogin(res?.data?.login);
+
             Navigate('/');
          }
       }catch(err){
