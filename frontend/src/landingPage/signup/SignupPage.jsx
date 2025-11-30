@@ -16,7 +16,7 @@ const SignupPage = () => {
    const handleSubmit=async(e)=>{
     e.preventDefault()
       try{
-           const res=   await  axios.post("http://localhost:3000/newUser",{
+           const res=   await  axios.post("https://zerodha-clone-ae1z.onrender.com/newUser",{
           name:userName,
           email:email,
           password:password,

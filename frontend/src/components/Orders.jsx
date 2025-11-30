@@ -8,7 +8,7 @@ const Orders = () => {
    
   useEffect(()=>{
     
-          axios.get("http://localhost:3000/allOrders",{withCredentials:true}).then((res)=>{ 
+          axios.get("https://zerodha-clone-ae1z.onrender.com/allOrders",{withCredentials:true}).then((res)=>{ 
         console.log(res.data)
         setAllOrders(res?.data?.data)
         setIsStatus(res?.data?.status);

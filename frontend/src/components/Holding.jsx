@@ -10,7 +10,7 @@ const {setStatusMessage,setIsStatus}=useContextProvider()
   const [allHoldings,setAllHoldings]=useState([])
   useEffect(()=>{
      
-       axios.get("http://localhost:3000/allHoldings",{withCredentials:true}).then((res)=>{ 
+       axios.get("https://zerodha-clone-ae1z.onrender.com/allHoldings",{withCredentials:true}).then((res)=>{ 
         // console.log(res.data)
         setAllHoldings(res?.data?.data)
         setStatusMessage(res?.data?.message);

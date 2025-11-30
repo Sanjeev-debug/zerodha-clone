@@ -11,7 +11,7 @@ const Positions = () => {
   
   useEffect(()=>{
      
-        axios.get("http://localhost:3000/allPositions",{withCredentials:true}).then((res)=>{ 
+        axios.get("https://zerodha-clone-ae1z.onrender.com/allPositions",{withCredentials:true}).then((res)=>{ 
         // console.log(res.data)
         setAllPositions(res?.data?.data)
         setStatusMessage(res?.data?.message);
