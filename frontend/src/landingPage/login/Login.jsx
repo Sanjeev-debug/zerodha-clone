@@ -38,6 +38,9 @@ const Login = () => {
      catch(err){
           setStatusMessage(err?.response?.data?.message);
             setIsStatus(err?.response?.data?.status);
+            setUserName('');
+            setPassword('');
+
         }
     }   
 

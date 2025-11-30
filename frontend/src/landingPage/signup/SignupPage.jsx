@@ -33,6 +33,10 @@ const SignupPage = () => {
       }catch(err){
          setStatusMessage(err?.response?.data?.message);
             setIsStatus(err?.response?.data?.status);
+            setUserName('');
+            setEmail('');
+            setPassword('');
+
       }
 
     

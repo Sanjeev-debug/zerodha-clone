@@ -16,7 +16,7 @@ const MyError =require('./MyError.js')
 
 
 app.use(cors({
-  origin: ["https://zerodha-clone-ae1z.onrender.com"],
+  origin: ["https://zerodha-clone-1-5grb.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
