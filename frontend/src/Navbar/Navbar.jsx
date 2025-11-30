@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie'
 import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
-  const [cookie,setCookies,removeCookies]=useCookies([])
+  const [cookie,setCookies,removeCookies]=useCookies(["token"])
   console.log("ccookkies --",cookie.token)
   return (
    <>
