@@ -14,7 +14,7 @@ const Login = () => {
     const handleSubmit=async(e)=>{
    try{
        e.preventDefault()
-     const res= await axios.post("http://localhost:3000/userLogin",{
+     const res= await axios.post("https://zerodha-clone-ae1z.onrender.com/userLogin",{
         name:userName,
         password:password,
        },
@@ -22,6 +22,7 @@ const Login = () => {
     );
     console.log(res?.data)
     console.log(res?.data?.message)
+    
 
      
         if(res?.data?.message){

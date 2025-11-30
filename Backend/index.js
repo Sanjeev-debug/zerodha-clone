@@ -16,7 +16,7 @@ const MyError =require('./MyError.js')
 
 
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: ["https://zerodha-clone-1-5grb.onrender.com"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
@@ -275,7 +275,7 @@ app.post('/newUser',async(req,res,next)=>{
         newUser.save();
         const token = createSecretToken(newUser._id);
         res.cookie("token", token, {
-        httpOnly: false,  // agar React me access karna hai
+        httpOnly: true,  // agar React me access karna hai
         secure: true,
         sameSite: "none",
         maxAge: 24*60*60*1000
