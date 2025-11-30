@@ -277,6 +277,8 @@ app.post('/newUser',async(req,res,next)=>{
         res.cookie("token", token, {
         withCredentials: true,
         httpOnly: false,
+         secure: true,         
+        sameSite: "none" 
        });
 
        console.log('userSave');
