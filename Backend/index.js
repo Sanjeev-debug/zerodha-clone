@@ -275,10 +275,10 @@ app.post('/newUser',async(req,res,next)=>{
         newUser.save();
         const token = createSecretToken(newUser._id);
         res.cookie("token", token, {
-        withCredentials: true,
-        httpOnly: false,
-         secure: true,         
-        sameSite: "none" 
+        httpOnly: false,  // agar React me access karna hai
+        secure: true,
+        sameSite: "none",
+        maxAge: 24*60*60*1000
        });
 
        console.log('userSave');
@@ -310,10 +310,10 @@ app.post('/userLogin',async(req,res,next)=>{
     }
      const token = createSecretToken(user._id);
      res.cookie("token", token, {
-       withCredentials: true,
-       httpOnly: false,
-       secure: true,         
-       sameSite: "none"  
+        httpOnly: false,  // agar React me access karna hai
+        secure: true,
+        sameSite: "none",
+        maxAge: 24*60*60*1000  
      });
      res.json({data:user,message:"User logged-in successfully",status:true});
     }catch(err){
