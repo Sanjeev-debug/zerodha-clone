@@ -275,7 +275,7 @@ app.post('/newUser',async(req,res,next)=>{
         newUser.save();
         const token = createSecretToken(newUser._id);
         res.cookie("token", token, {
-        httpOnly: true,  // agar React me access karna hai
+        httpOnly: false,  // agar React me access karna hai
         secure: true,
         sameSite: "none",
         maxAge: 24*60*60*1000
@@ -310,7 +310,7 @@ app.post('/userLogin',async(req,res,next)=>{
     }
      const token = createSecretToken(user._id);
      res.cookie("token", token, {
-        httpOnly: true,  // agar React me access karna hai
+        httpOnly: false,  // agar React me access karna hai
         secure: true,
         sameSite: "none",
         maxAge: 24*60*60*1000  
