@@ -1,0 +1,25 @@
+.active{
+    color:orange !important;
+    font-weight: bold;
+    border-bottom: 1px solid orange;
+}
+.logout{
+    width: 100px;
+    height: auto;
+    
+    position: absolute;
+    top: 55px;
+    right: 7%;
+    background-color: rgb(226, 224, 224);
+    padding-top: 10px;
+    border-radius: 5px;
+    
+    
+}
+.logout .logoutLink{
+    text-decoration: none;
+    color: black;
+}
+.logout li{
+    list-style: circle;
+}

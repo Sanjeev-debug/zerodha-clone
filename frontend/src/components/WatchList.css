@@ -1,0 +1,11 @@
+.list li:hover{
+    background-color: rgb(233, 232, 231);
+}
+span button{
+    border: none;
+    background-color: rgb(100, 179, 239);
+    color: white;
+    padding: 0px ;
+    border-radius: 2px ;
+    width: 30px;
+}

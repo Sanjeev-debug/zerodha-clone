@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+/* Body{
+    padding-top:57px;
+} */
+.nav-link{
+    margin-left: 50px;
+}
+li{
+  list-style: none;
+}
+.profit{
+    color: green !important;
+}
+.loss{
+    color: red !important;
+}
+.search{
+  border: none;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+ 
+}
+.down{
+  color: red;
+}
+.up{
+  color: green;
+}

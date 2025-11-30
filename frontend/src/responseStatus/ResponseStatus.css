@@ -1,0 +1,22 @@
+.status{
+    width: 40%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    /* border: 1px solid rgb(135, 136, 140); */
+    /* margin:10px auto; */
+    border-radius: 40px;
+    position: absolute;
+    top: 100px;
+    left: 30%;
+    z-index: 1000;
+    
+}
+.error{
+    background-color: rgb(245, 198, 198);
+    color: rgb(160, 10, 10);
+}
+.success{
+    background-color: rgb(169, 236, 169);
+    color: rgb(2, 60, 2);
+}

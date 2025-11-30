@@ -1,0 +1,29 @@
+fieldset, legend {
+  all: unset;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+fieldset {
+  border: 1px solid #b5b2b2 !important;
+  padding: 8px;
+}
+
+legend {
+  padding: 0 8px;
+  
+}
+.BuyWindowContainer{
+    width: 35%;
+    border: 1px solid gray;
+    position: absolute;
+    bottom: 40%;
+    left: 30%;
+    background-color: white;
+}
+input{
+    border: none;
+    outline: none;
+}
