@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+const API = import.meta.env.VITE_API_URL
 
 import axios from 'axios'
 import { useContextProvider } from '../context/ContextProvider'
@@ -11,7 +12,7 @@ const Positions = () => {
   
   useEffect(()=>{
      
-        axios.get("https://zerodha-clone-ae1z.onrender.com/allPositions",{withCredentials:true}).then((res)=>{ 
+        axios.get(`${API}/allPositions`,{ withCredentials: true }).then((res)=>{ 
         // console.log(res.data)
         setAllPositions(res?.data?.data)
         setStatusMessage(res?.data?.message);

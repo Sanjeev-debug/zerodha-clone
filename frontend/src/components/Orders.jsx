@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+const API = import.meta.env.VITE_API_URL;
 import axios from 'axios'
 import { useContextProvider } from '../context/ContextProvider'
 const Orders = () => {
@@ -8,7 +9,7 @@ const Orders = () => {
    
   useEffect(()=>{
     
-          axios.get("https://zerodha-clone-ae1z.onrender.com/allOrders",{withCredentials:true}).then((res)=>{ 
+          axios.get(`${API}/allOrders`,{ withCredentials: true }).then((res)=>{ 
         console.log(res.data)
         setAllOrders(res?.data?.data)
         setIsStatus(res?.data?.status);

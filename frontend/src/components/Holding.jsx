@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+const API = import.meta.env.VITE_API_URL;
 import axios from 'axios'
 import { VerticalChart } from './VerticalChart'
 import { useContextProvider } from '../context/ContextProvider'
@@ -10,7 +10,7 @@ const {setStatusMessage,setIsStatus}=useContextProvider()
   const [allHoldings,setAllHoldings]=useState([])
   useEffect(()=>{
      
-       axios.get("https://zerodha-clone-ae1z.onrender.com/allHoldings",{withCredentials:true}).then((res)=>{ 
+       axios.get(`${API}/allHoldings`,{ withCredentials: true }).then((res)=>{ 
         // console.log(res.data)
         setAllHoldings(res?.data?.data)
         setStatusMessage(res?.data?.message);

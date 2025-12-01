@@ -1,24 +1,37 @@
 import React from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+const API = import.meta.env.VITE_API_URL;
+import { Link, NavLink} from 'react-router-dom'
 import './Menu.css'
 import { useState } from 'react'
 import { useContextProvider } from '../context/ContextProvider'
+import axios from 'axios';
 
 
 
 const 
 Menu = () => {
-     const {setIsLogin}=useContextProvider()
-   const Navigate=useNavigate()
+     const {setIsLogin,setIsStatus,setStatusMessage}=useContextProvider();
+
 
    
   const [isLogout,setIsLogout]=useState(false);
-  const handelLogout=()=>{
-    setIsLogin(false);
+
+  const handleLogout = async () => {
+  try {
+    const res = await axios.post(`${API}/logout`, {}, { withCredentials: true });
+    console.log(res.data);
+
+
+    setIsLogin(res?.data?.login);
+    setIsStatus(res?.data?.status);
+    setStatusMessage(res?.data?.message)
      setIsLogout(!isLogout)
-     
-     
+    
+  } catch (err) {
+    console.log(err);
   }
+};
+ 
   return (
     <>
     <div className="container-fluid" style={{width:'70%',height:'60px',border:'2px solid #e1dbdbff',display:'flex',justifyContent:'space-around',alignItems:'center'}}>
@@ -43,7 +56,7 @@ Menu = () => {
            {isLogout &&  <div className='logout' >
                          <ul>
                           <li>Profile</li>
-                          <li><Link className='logoutLink' to={'/'} onClick={handelLogout} >LogOut</Link>   </li>
+                          <li><Link className='logoutLink' to={'/'} onClick={handleLogout} >LogOut</Link>   </li>
                           </ul>  
               </div>}
     </>

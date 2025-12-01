@@ -18,9 +18,11 @@ const Navbar = () => {
      
       <form className="" role="search">
         <ul className="navbar-nav  mb-2 mb-lg-0">
+       {isLogin?"":
         <li className="nav-item">
           <Link className="nav-link " aria-current="page" to={'/signup'}>Signup</Link>
         </li>
+       }
         <li className="nav-item">
           <Link className="nav-link" to={'/about'}>About</Link>
         </li>

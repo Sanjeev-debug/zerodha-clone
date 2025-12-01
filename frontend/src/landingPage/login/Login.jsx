@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+const API = import.meta.env.VITE_API_URL;
 import './Login.css'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -9,13 +10,38 @@ const Login = () => {
        const {setStatusMessage,setIsStatus,setIsLogin}=useContextProvider()
 
     const Navigate=useNavigate()
-    const [userName,setUserName]=useState('');
+    const [email,setEmail]=useState('');
     const [password,setPassword]=useState('');
+
+    useEffect(() => {
+  const forms = document.querySelectorAll('.needs-validation');
+
+  forms.forEach(form => {
+    const handleSubmit = (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }else{
+         event.preventDefault();
+      }
+
+      form.classList.add('was-validated');
+    }
+
+    form.addEventListener('submit', handleSubmit);
+
+    return () => {
+      form.removeEventListener('submit', handleSubmit);
+    }
+  });
+}, []);
+
+
     const handleSubmit=async(e)=>{
    try{
        e.preventDefault()
-     const res= await axios.post("https://zerodha-clone-ae1z.onrender.com/userLogin",{
-        name:userName,
+     const res= await axios.post(`${API}/userLogin`,{
+        email:email,
         password:password,
        },
     {withCredentials:true}
@@ -38,7 +64,7 @@ const Login = () => {
      catch(err){
           setStatusMessage(err?.response?.data?.message);
             setIsStatus(err?.response?.data?.status);
-            setUserName('');
+            setEmail('');
             setPassword('');
 
         }
@@ -49,10 +75,10 @@ const Login = () => {
    <div className="container mt-5 mb-5 "  >
     <div className="row  ">
         <div className="col-5  mx-auto"   >
-            <div className='login' >
-                <form  onSubmit={(e)=>handleSubmit(e)}>
-                    <input type="text" placeholder='Enter username' value={userName} onChange={(e)=>setUserName(e.target.value)} />
-                    <input type="text" placeholder='Enter password' value={password} onChange={(e)=>setPassword(e.target.value)} />  
+            <div className='login  ' >
+                <form  onSubmit={(e)=>handleSubmit(e)} className='needs-validation' noValidate >
+                    <input type="email" placeholder='Enter email' className='form-control' value={email} onChange={(e)=>setEmail(e.target.value)}required />
+                    <input type="password" placeholder='Enter password' className='form-control' value={password} onChange={(e)=>setPassword(e.target.value)}required />  
                     <button type='submit' >Login</button>
                 </form>
             </div>

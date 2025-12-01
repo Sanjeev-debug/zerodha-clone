@@ -16,13 +16,13 @@ const MyError =require('./MyError.js')
 
 
 app.use(cors({
-  origin: ["https://zerodha-clone-1-5grb.onrender.com"],
+  origin: "https://zerodha-clone-1-5grb.onrender.com",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
 
-app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
 
 const {HoldingsModel}=require("./model/HoldingsModel.js");
 const {PositionsModel}=require("./model/PositionsModel.js");
@@ -245,44 +245,58 @@ app.get('/allOrders',userVerification,async(req,res,next)=>{
   
 })
 app.post('/newOrder',userVerification,async(req,res,next)=>{
-  try{
+  try{  
+    const {name,qty,price,mode}=req.body
+    if(
+       !name || qty === undefined || qty === null || qty <= 0 || isNaN(qty) ||
+       price === undefined || price === null || price <= 0 || isNaN(price) ||!mode
+      )
+       {
+         throw new MyError(400,"All fields are required or invalid");
+       }
         let newOrder=new OrdersModel({
-        name: req.body.name,
-        qty:  req.body.qty,
-        price:  req.body.price,
-        mode: req.body.mode,
+         name,
+          qty,
+          price,
+        mode,
        })
-       newOrder.save();
+     await  newOrder.save();
        res.json({message:'Order Save successfully',status:true});
   }catch(err){
       next(err)
   }
   
 });
+
 app.post('/newUser',async(req,res,next)=>{
   try{
-        console.log(req.body)
-        const existingUser= await UserModel.findOne({email:req.body.email})
+        const { name, email, password } = req.body;
+         if (!name || !email || !password) {
+         throw new MyError(400, "All fields are required");
+         }
+        const existingUser= await UserModel.findOne({email});
         if (existingUser) {
-        throw new MyError(500,"User already exist")
+        throw new MyError(400,"User already exist")
         }
+        
+
         let newUser=new UserModel({
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.password
+        name:name,
+        email:email,
+        password:password,
         });
         // console.log(newUser);
-        newUser.save();
+     await   newUser.save();
         const token = createSecretToken(newUser._id);
         res.cookie("token", token, {
-        httpOnly: true,  // agar React me access karna hai
+        httpOnly: true,  
         secure: true,
         sameSite: "none",
         maxAge: 24*60*60*1000
        });
 
        console.log('userSave');
-       res.json({data:newUser,message:'User craeted successfully',status:true,login:true});
+       res.json({data:newUser,message:'User created successfully',status:true,login:true});
   }catch(err){
     next(err)
   }
@@ -290,23 +304,23 @@ app.post('/newUser',async(req,res,next)=>{
 });
 app.post('/userLogin',async(req,res,next)=>{
     try{
-      const { name, password } = req.body;
-      console.log(name)
-    if(!name || !password ){
+      const { email, password } = req.body;
+      console.log(email)
+    if(!email || !password ){
       
-         throw new MyError(404, "All fields are required");
+         throw new MyError(400, "All fields are required");
     }
-    const user = await UserModel.findOne( {name} );
+    const user = await UserModel.findOne( {email} );
     // console.log(user)
     if(!user){
       
-      throw new MyError(404, "Incorrect password or email");
+      throw new MyError(400, "Incorrect password or email");
       
     }
     const auth = await bcrypt.compare(password,user.password);
     console.log(auth)
     if (!auth) {
-       throw new MyError(404, "Incorrect password or email"); 
+       throw new MyError(400, "Incorrect password or email"); 
     }
      const token = createSecretToken(user._id);
      res.cookie("token", token, {
@@ -320,6 +334,16 @@ app.post('/userLogin',async(req,res,next)=>{
       next(err)
     }
     
+});
+app.post('/logout', (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: true,      // production me true
+    sameSite: "none",
+    expires: new Date(0)   // immediately expire
+  });
+
+  res.json({ message: "Logout successful", status: true, login: false });
 });
 
 

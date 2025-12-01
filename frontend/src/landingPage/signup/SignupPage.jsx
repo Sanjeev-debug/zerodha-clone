@@ -1,4 +1,5 @@
 import React, { useState ,useEffect} from 'react'
+const API = import.meta.env.VITE_API_URL;
 import {useNavigate} from 'react-router-dom'
 import './SignupPage.css'
 import axios from 'axios'
@@ -13,10 +14,34 @@ const SignupPage = () => {
    const [userName,setUserName]=useState('');
    const [email,setEmail]=useState('');
    const [password,setPassword]=useState('');
+  
+     useEffect(() => {
+  const forms = document.querySelectorAll('.needs-validation');
+
+  forms.forEach(form => {
+    const handleSubmit = (event) => {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }else{
+         event.preventDefault();
+      }
+
+      form.classList.add('was-validated');
+    }
+
+    form.addEventListener('submit', handleSubmit);
+
+    return () => {
+      form.removeEventListener('submit', handleSubmit);
+    }
+  });
+}, []);
+
    const handleSubmit=async(e)=>{
     e.preventDefault()
       try{
-           const res=   await  axios.post("https://zerodha-clone-ae1z.onrender.com/newUser",{
+           const res=   await  axios.post(`${API}/newUser`,{
           name:userName,
           email:email,
           password:password,
@@ -51,10 +76,10 @@ const SignupPage = () => {
     <div className="row  ">
         <div className="col-5  mx-auto"   >
             <div className='signup' >
-                <form onSubmit={(e)=>handleSubmit(e)} >
-                   <input type="text" placeholder='Enter username' value={userName} onChange={(e)=>setUserName(e.target.value)} />
-                   <input type="text" placeholder='Enter email' value={email} onChange={(e)=>setEmail(e.target.value)} />
-                   <input type="text" placeholder='Enter password' value={password} onChange={(e)=>setPassword(e.target.value)} />  
+                <form onSubmit={(e)=>handleSubmit(e)} className='needs-validation'  noValidate >
+                   <input type="text" placeholder='Enter username' className='form-control' value={userName} onChange={(e)=>setUserName(e.target.value)} required />
+                   <input type="email" placeholder='Enter email' className='form-control' value={email} onChange={(e)=>setEmail(e.target.value)} required />
+                   <input type="password" placeholder='Enter password' className='form-control' value={password} onChange={(e)=>setPassword(e.target.value)}required />  
                     <button type='submit'  >SignUp</button>
                 </form>
             </div>

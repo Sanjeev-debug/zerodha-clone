@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+const API = import.meta.env.VITE_API_URL;
 import GeneralContext from './GeneralContext.jsx'
 import {Link, NavLink} from 'react-router-dom'
 import './BuyActionWindow.css'
@@ -14,14 +15,14 @@ const BuyActionWindow = ({uid}) => {
         generalContext.closeBuyWindow();
     }
     const handleBuySubmit=()=>{
-        axios.post('https://zerodha-clone-ae1z.onrender.com/newOrder',{
+        axios.post(`${API}/newOrder`,{
              name: uid,
              qty:  stockQty,
              price:  stockPrice,
              mode: "BUY",
 
         },
-        {withCredentials:true}
+       { withCredentials: true }
     );
         generalContext.closeBuyWindow();
     }
